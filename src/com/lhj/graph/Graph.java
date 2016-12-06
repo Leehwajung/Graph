@@ -18,6 +18,12 @@ public interface Graph<E> {
 	public void addEdge(E tail, E head);
 	
 	/**
+	 * Adjacency Matrix
+	 * @return Adjacency Matrix
+	 */
+//	public E[][] getMatrix();
+	
+	/**
 	 * 깊이 우선 탐색
 	 * @param s 탐색을 시작하는 정점 s ∈ V
 	 */

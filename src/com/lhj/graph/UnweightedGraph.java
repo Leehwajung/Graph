@@ -2,6 +2,7 @@ package com.lhj.graph;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -52,6 +53,25 @@ public class UnweightedGraph<E extends Comparable<E>> extends AbstractGraph<E> {
 	@Override
 	protected List<E> getHeads(E tail) {
 		return adjInfo.get(tail);
+	}
+	
+	public void printAdjacencyMatrix() {
+		List<E> vs = getAllVertices();
+		for (E v : vs) {
+			Iterator<E> iterator = getHeads(v).iterator();
+			E w = iterator.next();
+			for (E e : vs) {
+				if (e == w) {
+					System.out.print(" 1 ");
+					if (iterator.hasNext()) {
+						w = iterator.next();
+					}
+				} else {
+					System.out.print(" . ");
+				}
+			}
+			System.out.println();
+		}
 	}
 	
 	/**
