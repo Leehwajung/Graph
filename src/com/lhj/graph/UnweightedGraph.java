@@ -20,7 +20,9 @@ public class UnweightedGraph<E extends Comparable<E>> extends AbstractGraph<E> {
 	
 	@Override
 	public void addVertex(E vertex) {
-		adjInfo.put(vertex, new LinkedList<>());
+		if (!adjInfo.containsKey(vertex)) {
+			adjInfo.put(vertex, new LinkedList<>());
+		}
 	}
 	
 	@Override
@@ -37,6 +39,7 @@ public class UnweightedGraph<E extends Comparable<E>> extends AbstractGraph<E> {
 			adjInfo.put(tail, subList);
 			subList.add(head);
 		}
+		addVertex(head);
 	}
 	
 	@Override
@@ -49,5 +52,49 @@ public class UnweightedGraph<E extends Comparable<E>> extends AbstractGraph<E> {
 	@Override
 	protected List<E> getHeads(E tail) {
 		return adjInfo.get(tail);
+	}
+	
+	/**
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return adjInfo.toString();
+	}
+	
+	/**
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((adjInfo == null) ? 0 : adjInfo.hashCode());
+		return result;
+	}
+	
+	/**
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof UnweightedGraph<?>)) {
+			return false;
+		}
+		UnweightedGraph<?> other = (UnweightedGraph<?>) obj;
+		if (adjInfo == null) {
+			if (other.adjInfo != null) {
+				return false;
+			}
+		} else if (!adjInfo.equals(other.adjInfo)) {
+			return false;
+		}
+		return true;
 	}
 }
